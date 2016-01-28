@@ -50,6 +50,63 @@ public class ElementDao implements DAO<Elements> {
 
     @Override
     public void delete(Elements t) {
+        String query = "delete from where elementid = ?";
+        Connection connection = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            if (connection != null) {
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, t.getElementid());
+                preparedStatement.execute();
+            }
+        } catch (SQLException ex) {
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+            }
+
+        }
+    }
+
+    @Override
+    public List getAll() {
+        List<Elements> objectCollection = new ArrayList();
+        String query = ("select * from elements");
+        Connection connection = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rezult = statement.executeQuery();
+            while (rezult.next()) {
+                Elements Object = new Elements();
+
+                Object.setElementid(rezult.getInt(1));
+                Object.setName(rezult.getString(2));
+                Object.setDescription(rezult.getString(3));
+                Object.setImage(rezult.getString(4));
+                objectCollection.add(Object);
+            }
+
+        } catch (Exception ex) {
+
+        }
+        finally{
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ElementDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+}
+        return objectCollection;
+    }
+
+    @Override
+    public void update(Elements t) {
+    }
+
+    @Override
+    public Elements getById(int id) {
         String query = "delete from elements where ";
         Connection connection = null;
         try {
