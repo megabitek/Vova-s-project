@@ -128,9 +128,10 @@ public class ElementDao implements DAO<Elements> {
             }
             connection.close();
         } catch (SQLException ex) {
-            return null;
+            
         }
+return null;
+    
 
-    }
-
+}
 }
