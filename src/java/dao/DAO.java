@@ -18,5 +18,10 @@ public interface DAO<T> {
     void update (T t);
     T getById(int id);
     
+    default int getnextID (){
+    int size = getAll().size();
+    return size+1;
+    };
+    
     
 }

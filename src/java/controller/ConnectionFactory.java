@@ -36,29 +36,29 @@ public class ConnectionFactory {
     }
 
     private static Connection createConnection() {
-        String FILE_PROPERTY_NAME = "/utils/database.properties";
-        Properties properties = new Properties();
+       /* String FILE_PROPERTY_NAME = "/utils/database.properties";
+       /* Properties properties = new Properties();*/
         try {
-            InputStream in = Class.class.getResourceAsStream(FILE_PROPERTY_NAME);
+          /*  InputStream in = Class.class.getResourceAsStream(FILE_PROPERTY_NAME);
             properties.load(in);
             String driverName = properties.getProperty("database.driverName");
             String userName = properties.getProperty("database.username");
             String password = properties.getProperty("database.password");
             String connectionString = properties.getProperty("database.url");
             Locale locale = Locale.getDefault();
-            Locale.setDefault(Locale.ENGLISH);
+            Locale.setDefault(Locale.ENGLISH);*/
             Class.forName("org.sqlite.JDBC");
-            java.sql.Connection connection = DriverManager.getConnection(connectionString, userName, password);
+            java.sql.Connection connection = DriverManager.getConnection("jdbc:sqlite:D://aptech.sqlite","","");
 
             return connection;
 
         } catch (SQLException ex) {
             System.out.println("Not connection!!! ");
             return null;
-        } catch (IOException ex) {
+        } /*catch (IOException ex) {
             System.out.println("Wrong prop. files!!! ");
-            return null;
-        } catch (ClassNotFoundException ex) {
+            return null;*/
+        catch (ClassNotFoundException ex) {
             System.out.println("Bad driver file");
             return null;
         }
